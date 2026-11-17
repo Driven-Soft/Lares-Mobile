@@ -2,6 +2,8 @@ import type { Prioridade, StatusOcorrencia } from '../models';
 
 export const cores = {
   verde: '#1F6B4F',
+  gestor: '#1E46B4',
+  gestorClaro: '#E4ECFC',
   verdeClaro: '#E3F1EA',
   texto: '#18211D',
   textoApoio: '#56615B',

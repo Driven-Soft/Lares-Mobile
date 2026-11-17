@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TelaProvisoria, PerfilProvisorio } from '../screens/Provisorias';
+import { Perfil } from '../screens/Perfil';
+import { TelaProvisoria } from '../screens/Provisorias';
 import type { AbasGestor } from './types';
 import { opcoesAbas } from './opcoesAbas';
 
@@ -9,7 +10,7 @@ export function GestorTabs() {
   return (
     <Abas.Navigator initialRouteName="Fila" screenOptions={opcoesAbas}>
       <Abas.Screen name="Fila" component={TelaProvisoria} />
-      <Abas.Screen name="Perfil" component={PerfilProvisorio} />
+      <Abas.Screen name="Perfil" component={Perfil} />
     </Abas.Navigator>
   );
 }

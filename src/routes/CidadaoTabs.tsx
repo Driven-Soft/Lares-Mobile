@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TelaProvisoria, PerfilProvisorio } from '../screens/Provisorias';
+import { Perfil } from '../screens/Perfil';
+import { TelaProvisoria } from '../screens/Provisorias';
 import type { AbasCidadao } from './types';
 import { opcoesAbas } from './opcoesAbas';
 
@@ -10,7 +11,7 @@ export function CidadaoTabs() {
     <Abas.Navigator initialRouteName="Minhas ocorrências" screenOptions={opcoesAbas}>
       <Abas.Screen name="Minhas ocorrências" component={TelaProvisoria} />
       <Abas.Screen name="Bairro" component={TelaProvisoria} />
-      <Abas.Screen name="Perfil" component={PerfilProvisorio} />
+      <Abas.Screen name="Perfil" component={Perfil} />
     </Abas.Navigator>
   );
 }

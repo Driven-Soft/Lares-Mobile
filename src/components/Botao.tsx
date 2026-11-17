@@ -1,8 +1,11 @@
+import type { ComponentProps } from 'react';
+import { Feather } from '@expo/vector-icons';
 import { Pressable, Text, ActivityIndicator } from 'react-native';
 import { cores } from '../theme/cores';
 
 interface Props {
   titulo: string;
+  icone?: ComponentProps<typeof Feather>['name'];
   aoPressionar: () => void;
   variante?: 'primario' | 'secundario' | 'perigo';
   carregando?: boolean;
@@ -12,6 +15,7 @@ interface Props {
 
 export function Botao({
   titulo,
+  icone,
   aoPressionar,
   variante = 'primario',
   carregando = false,
@@ -37,7 +41,11 @@ export function Botao({
         opacity: bloqueado ? 0.7 : 1,
       }}
     >
-      {carregando && <ActivityIndicator color={cor} />}
+      {carregando ? (
+        <ActivityIndicator color={cor} />
+      ) : (
+        icone && <Feather name={icone} size={18} color={cor} />
+      )}
       <Text className="text-center font-sans-bold text-corpo" style={{ color: cor }}>
         {carregando ? (textoCarregando ?? titulo) : titulo}
       </Text>

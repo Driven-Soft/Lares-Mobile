@@ -10,7 +10,6 @@ const titulos: Record<string, string> = {
   FormOcorrencia: 'Nova ocorrência',
   AtualizarStatus: 'Atualizar status',
   Sobre: 'Sobre o app',
-  Cadastro: 'Criar conta',
 };
 
 export function TelaProvisoria({ route }: { route: { name: string } }) {

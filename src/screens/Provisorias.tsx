@@ -5,7 +5,6 @@ const titulos: Record<string, string> = {
   Detalhe: 'Ocorrência',
   FormOcorrencia: 'Nova ocorrência',
   AtualizarStatus: 'Atualizar status',
-  Sobre: 'Sobre o app',
 };
 
 export function TelaProvisoria({ route }: { route: { name: string } }) {

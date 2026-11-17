@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import { Sobre } from '../screens/Sobre';
 import { Cadastro } from '../screens/Cadastro';
 import { Login } from '../screens/Login';
 import { TelaProvisoria } from '../screens/Provisorias';
@@ -36,7 +37,7 @@ export function RootStack() {
           ) : (
             <Pilha.Screen name="FormOcorrencia" component={TelaProvisoria} />
           )}
-          <Pilha.Screen name="Sobre" component={TelaProvisoria} />
+          <Pilha.Screen name="Sobre" component={Sobre} />
         </Pilha.Group>
       ) : (
         <Pilha.Group navigationKey="publico">

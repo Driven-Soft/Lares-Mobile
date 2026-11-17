@@ -22,3 +22,5 @@ yarn-error.*
 .env
 .env.*
 !.env.example
+
+/ETAPAS_CODEX.md

@@ -1,0 +1,47 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ActivityIndicator, Text, View } from 'react-native';
+import { useAuth } from '../context/AuthContext';
+import { LoginProvisorio, TelaProvisoria } from '../screens/Provisorias';
+import { cores } from '../theme/cores';
+import { CidadaoTabs } from './CidadaoTabs';
+import { GestorTabs } from './GestorTabs';
+import type { RotasRaiz } from './types';
+
+const Pilha = createNativeStackNavigator<RotasRaiz>();
+
+export function RootStack() {
+  const { sessao, estado } = useAuth();
+
+  if (estado === 'restaurando')
+    return (
+      <View className="flex-1 items-center justify-center gap-3 bg-fundo">
+        <ActivityIndicator color={cores.verde} />
+        <Text className="font-sans text-texto">Restaurando sessão…</Text>
+      </View>
+    );
+
+  return (
+    <Pilha.Navigator screenOptions={{ headerShown: false }}>
+      {sessao ? (
+        <Pilha.Group navigationKey={String(sessao.usuarioId)}>
+          <Pilha.Screen
+            name="Tabs"
+            component={sessao.papel === 'GESTOR' ? GestorTabs : CidadaoTabs}
+          />
+          <Pilha.Screen name="Detalhe" component={TelaProvisoria} />
+          {sessao.papel === 'GESTOR' ? (
+            <Pilha.Screen name="AtualizarStatus" component={TelaProvisoria} />
+          ) : (
+            <Pilha.Screen name="FormOcorrencia" component={TelaProvisoria} />
+          )}
+          <Pilha.Screen name="Sobre" component={TelaProvisoria} />
+        </Pilha.Group>
+      ) : (
+        <Pilha.Group navigationKey="publico">
+          <Pilha.Screen name="Login" component={LoginProvisorio} />
+          <Pilha.Screen name="Cadastro" component={TelaProvisoria} />
+        </Pilha.Group>
+      )}
+    </Pilha.Navigator>
+  );
+}

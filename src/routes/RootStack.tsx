@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
-import { LoginProvisorio, TelaProvisoria } from '../screens/Provisorias';
+import { Login } from '../screens/Login';
+import { TelaProvisoria } from '../screens/Provisorias';
 import { cores } from '../theme/cores';
 import { CidadaoTabs } from './CidadaoTabs';
 import { GestorTabs } from './GestorTabs';
@@ -38,7 +39,7 @@ export function RootStack() {
         </Pilha.Group>
       ) : (
         <Pilha.Group navigationKey="publico">
-          <Pilha.Screen name="Login" component={LoginProvisorio} />
+          <Pilha.Screen name="Login" component={Login} />
           <Pilha.Screen name="Cadastro" component={TelaProvisoria} />
         </Pilha.Group>
       )}

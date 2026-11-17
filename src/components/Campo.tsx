@@ -6,6 +6,7 @@ import { cores } from '../theme/cores';
 interface Props extends TextInputProps {
   rotulo: string;
   erro?: string;
+  invalido?: boolean;
   dica?: string;
   contador?: boolean;
 }
@@ -14,6 +15,7 @@ export function Campo({
   rotulo,
   erro,
   dica,
+  invalido,
   contador,
   secureTextEntry,
   editable = true,
@@ -34,7 +36,7 @@ export function Campo({
         className="flex-row items-center rounded-lg border px-3"
         style={{
           backgroundColor: editable ? cores.cartao : cores.fundo,
-          borderColor: erro ? cores.erro : focado ? cores.verde : cores.borda,
+          borderColor: erro || invalido ? cores.erro : focado ? cores.verde : cores.borda,
         }}
       >
         <TextInput

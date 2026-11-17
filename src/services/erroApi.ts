@@ -1,6 +1,10 @@
 import { isAxiosError } from 'axios';
 import type { ErroApi } from '../models';
 
+export function statusDoErro(erro: unknown) {
+  return isAxiosError(erro) ? erro.response?.status : undefined;
+}
+
 export function mensagemDeErro(erro: unknown): string {
   if (!isAxiosError<ErroApi>(erro)) return 'Não foi possível concluir a operação. Tente novamente.';
 

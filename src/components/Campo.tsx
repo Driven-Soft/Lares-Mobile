@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, Text, TextInput, Pressable, type TextInputProps } from 'react-native';
 import { cores } from '../theme/cores';
+
 interface Props extends TextInputProps {
   rotulo: string;
   erro?: string;
   dica?: string;
   contador?: boolean;
 }
+
 export function Campo({
   rotulo,
   erro,
@@ -22,7 +24,9 @@ export function Campo({
   ...props
 }: Props) {
   const [visivel, mostrar] = useState(false);
+
   const [focado, focar] = useState(false);
+
   return (
     <View className="gap-1">
       <Text className="font-sans-semibold text-legenda text-texto">{rotulo}</Text>

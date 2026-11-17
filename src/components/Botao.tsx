@@ -1,5 +1,6 @@
 import { Pressable, Text, ActivityIndicator } from 'react-native';
 import { cores } from '../theme/cores';
+
 interface Props {
   titulo: string;
   aoPressionar: () => void;
@@ -8,6 +9,7 @@ interface Props {
   textoCarregando?: string;
   desabilitado?: boolean;
 }
+
 export function Botao({
   titulo,
   aoPressionar,
@@ -17,8 +19,11 @@ export function Botao({
   desabilitado = false,
 }: Props) {
   const primario = variante === 'primario';
+
   const cor = primario ? cores.cartao : variante === 'perigo' ? cores.erro : cores.verde;
+
   const bloqueado = desabilitado || carregando;
+
   return (
     <Pressable
       accessibilityRole="button"

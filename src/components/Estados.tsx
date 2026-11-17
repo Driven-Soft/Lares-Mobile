@@ -2,12 +2,14 @@ import { Feather } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
 import { cores } from '../theme/cores';
 import { Botao } from './Botao';
+
 interface Props {
   titulo: string;
   mensagem: string;
   acao?: string;
   aoPressionar?: () => void;
 }
+
 function Estado({
   titulo,
   mensagem,
@@ -39,9 +41,11 @@ function Estado({
     </View>
   );
 }
+
 export function EstadoVazio(props: Props) {
   return <Estado {...props} />;
 }
+
 export function EstadoErro({
   mensagem,
   tentarNovamente,

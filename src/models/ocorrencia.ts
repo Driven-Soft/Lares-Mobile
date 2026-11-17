@@ -1,10 +1,13 @@
 export type StatusOcorrencia = 'RECEBIDA' | 'TRIADA' | 'EM_ANDAMENTO' | 'RESOLVIDA';
+
 export type Prioridade = 'BAIXA' | 'MEDIA' | 'ALTA';
+
 export interface Categoria {
   id: number;
   codigo: string;
   nome: string;
 }
+
 export interface HistoricoStatus {
   statusAnterior: StatusOcorrencia | null;
   statusNovo: StatusOcorrencia;
@@ -12,12 +15,14 @@ export interface HistoricoStatus {
   usuarioNome: string | null;
   dataAlteracao: string;
 }
+
 export interface OcorrenciaRequest {
   descricao: string;
   bairro: string;
   latitude?: number | null;
   longitude?: number | null;
 }
+
 export interface Ocorrencia extends OcorrenciaRequest {
   id: number;
   latitude: number | null;
@@ -33,11 +38,13 @@ export interface Ocorrencia extends OcorrenciaRequest {
   dataAtualizacao: string;
   historico?: HistoricoStatus[];
 }
+
 export interface AtualizarStatusRequest {
   status: 'EM_ANDAMENTO' | 'RESOLVIDA';
   comentario?: string;
   categoriaId?: number;
 }
+
 export interface FiltroBusca {
   bairro?: string;
   status?: StatusOcorrencia;

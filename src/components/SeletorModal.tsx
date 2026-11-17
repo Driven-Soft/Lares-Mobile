@@ -3,10 +3,12 @@ import { Modal, ScrollView, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Chip } from './Chip';
 import { Botao } from './Botao';
+
 interface Opcao<T> {
   valor: T;
   rotulo: string;
 }
+
 export function SeletorModal<T extends string | number>({
   titulo,
   opcoes,
@@ -19,7 +21,9 @@ export function SeletorModal<T extends string | number>({
   selecionar: (valor: T) => void;
 }) {
   const [aberto, abrir] = useState(false);
+
   const atual = opcoes.find((o) => o.valor === valor);
+
   return (
     <View className="gap-2">
       <Text className="font-sans-semibold text-legenda text-texto">{titulo}</Text>

@@ -1,4 +1,5 @@
 import { Pressable, Text } from 'react-native';
+
 export function Chip({
   rotulo,
   selecionado,

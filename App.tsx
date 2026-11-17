@@ -16,14 +16,20 @@ import { Botao } from './src/components/Botao';
 import { Etiqueta } from './src/components/Etiqueta';
 import { Cartao } from './src/components/Cartao';
 import { cores } from './src/theme/cores';
+
 void SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [fontes, erro] = useFonts({ Inter_400Regular, Inter_600SemiBold, Inter_700Bold });
+
   const [bairro, definirBairro] = useState('');
+
   useEffect(() => {
     if (fontes || erro) void SplashScreen.hideAsync();
   }, [fontes, erro]);
+
   if (!fontes && !erro) return null;
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: cores.fundo }}>

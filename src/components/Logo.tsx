@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
 import { cores } from '../theme/cores';
+
 export function Logo({
   tamanho = 64,
   mostrarNome = true,

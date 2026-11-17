@@ -1,10 +1,12 @@
 import type { PropsWithChildren } from 'react';
 import { View } from 'react-native';
+
 export function Cartao({ children }: PropsWithChildren) {
   return (
     <View className="gap-3 rounded-xl border border-borda bg-cartao p-4 shadow-sm">{children}</View>
   );
 }
+
 export function EsqueletoCartao() {
   return (
     <View accessible accessibilityLabel="Carregando ocorrência">

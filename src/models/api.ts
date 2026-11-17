@@ -5,6 +5,7 @@ export interface Pagina<T> {
   totalItens: number;
   totalPaginas: number;
 }
+
 export interface ErroApi {
   status: number;
   erro: string;

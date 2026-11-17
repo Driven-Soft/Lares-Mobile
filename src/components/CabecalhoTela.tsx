@@ -1,6 +1,7 @@
 import { Feather } from '@expo/vector-icons';
 import { View, Text, Pressable } from 'react-native';
 import { cores } from '../theme/cores';
+
 export function CabecalhoTela({ titulo, voltar }: { titulo: string; voltar?: () => void }) {
   return (
     <View className="flex-row items-center gap-2">

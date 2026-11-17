@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Lares",
+    "slug": "lares-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "br.com.fiap.drivensoft.lares"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "plugins": [
+      "expo-font",
+      "expo-splash-screen"
+    ]
+  }
+}

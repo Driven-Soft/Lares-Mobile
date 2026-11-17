@@ -2,13 +2,20 @@ import { useRef, useState } from 'react';
 import { Keyboard, Pressable, Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAcordarServidor } from '../hooks/useAcordarServidor';
+import { AcordandoServidor } from '../components/AcordandoServidor';
 import { FormularioConta } from '../components/FormularioConta';
 import { Botao } from '../components/Botao';
 import { Campo } from '../components/Campo';
 import { useAuth } from '../context/AuthContext';
 import { useSnackbar } from '../context/SnackbarContext';
 import type { RotasRaiz } from '../routes/types';
-import { mensagemDeErro, camposDoErro, statusDoErro } from '../services/erroApi';
+import {
+  mensagemDeErro,
+  camposDoErro,
+  statusDoErro,
+  semRespostaDoServidor,
+} from '../services/erroApi';
 import { emailValido, senhaValida } from '../utils/texto';
 import { cores } from '../theme/cores';
 
@@ -25,7 +32,12 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
 
   const emCurso = useRef(false);
 
+  const [semConfirmacao, definirSemConfirmacao] = useState(false);
+
+  useAcordarServidor();
+
   function alterar(campo: keyof typeof dados, valor: string) {
+    definirSemConfirmacao(false);
     definirDados((anterior) => ({ ...anterior, [campo]: valor }));
     definirErros((anterior) => ({ ...anterior, [campo]: '' }));
   }
@@ -57,6 +69,7 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
 
     Keyboard.dismiss();
     emCurso.current = true;
+    definirSemConfirmacao(false);
     enviar(true);
     try {
       await registrar({ nome, email, senha });
@@ -70,7 +83,8 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
 
       const campos = camposDoErro(erro);
 
-      if (statusDoErro(erro) === 409)
+      if (semRespostaDoServidor(erro)) definirSemConfirmacao(true);
+      else if (statusDoErro(erro) === 409)
         definirErros({ email: 'Este e-mail já tem conta. Entre ou use outro.' });
       else if (statusDoErro(erro) === 400 && campos && Object.keys(campos).some((c) => c in dados))
         definirErros(campos);
@@ -159,6 +173,16 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
         onChangeText={(v) => alterar('confirmacao', v)}
         onSubmitEditing={cadastrar}
       />
+      {semConfirmacao && (
+        <View accessibilityLiveRegion="polite" className="gap-2 rounded-xl bg-erro-claro p-3">
+          <Text className="font-sans text-corpo text-texto">
+            Não recebemos a confirmação do cadastro. A conta pode ter sido criada. Tente entrar com
+            o mesmo e-mail e senha.
+          </Text>
+          <Botao titulo="Ir para o login" variante="secundario" aoPressionar={navigation.goBack} />
+        </View>
+      )}
+      {enviando && <AcordandoServidor />}
       <Botao
         titulo="Criar conta"
         aoPressionar={cadastrar}

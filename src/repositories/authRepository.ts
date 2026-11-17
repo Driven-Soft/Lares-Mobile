@@ -12,3 +12,7 @@ export async function registrar(dados: RegistroRequest) {
 
   return resposta.data;
 }
+
+export async function acordarServidor(signal: AbortSignal) {
+  await api.get('/actuator/health', { signal, timeout: 90_000 });
+}

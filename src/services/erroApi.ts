@@ -28,3 +28,7 @@ export function mensagemDeErro(erro: unknown): string {
 export function camposDoErro(erro: unknown) {
   return isAxiosError<ErroApi>(erro) ? erro.response?.data?.campos : undefined;
 }
+
+export function semRespostaDoServidor(erro: unknown) {
+  return isAxiosError(erro) && !erro.response;
+}

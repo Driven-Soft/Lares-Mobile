@@ -9,6 +9,7 @@ import type {
   Pagina,
 } from '../../models';
 import { proximoStatus } from '../../utils/ocorrencia';
+import { dataDaApi } from '../../utils/datas';
 import { buscarMe, falhar } from './contas';
 
 const recebida = exemplos.recebidaSemTriagem as Ocorrencia;
@@ -25,7 +26,7 @@ const categorias: Categoria[] = [
 
 export const categoriaRepository = { listar: async () => categorias };
 
-const registros: Ocorrencia[] = [
+const exemplosIniciais: Ocorrencia[] = [
   { ...recebida, descricao: 'Teste: iluminação sem triagem permanente.' },
   { ...triada, id: 2, descricao: 'Teste: triagem sem textos da IA.', prazoEstimadoDias: 5 },
   {
@@ -39,6 +40,23 @@ const registros: Ocorrencia[] = [
 ];
 
 let proximoId = 5;
+
+// A ocorrência permanente já ultrapassou três minutos, seja qual for a data do aparelho.
+const deslocamento = Date.now() - 240_000 - dataDaApi(recebida.dataAbertura).getTime();
+
+function dataDoCenario(data: string) {
+  return new Date(dataDaApi(data).getTime() + deslocamento).toISOString();
+}
+
+const registros: Ocorrencia[] = exemplosIniciais.map((item) => ({
+  ...item,
+  dataAbertura: dataDoCenario(item.dataAbertura),
+  dataAtualizacao: dataDoCenario(item.dataAtualizacao),
+  historico: item.historico?.map((evento) => ({
+    ...evento,
+    dataAlteracao: dataDoCenario(evento.dataAlteracao),
+  })),
+}));
 
 let falhaPendente = true;
 

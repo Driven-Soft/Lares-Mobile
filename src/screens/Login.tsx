@@ -11,10 +11,13 @@ import { useAuth } from '../context/AuthContext';
 import { useSnackbar } from '../context/SnackbarContext';
 import type { RotasRaiz } from '../routes/types';
 import { mensagemDeErro, statusDoErro } from '../services/erroApi';
+import { useAcordarServidor } from '../hooks/useAcordarServidor';
 import { emailValido } from '../utils/texto';
 import { cores } from '../theme/cores';
 
 export function Login({ navigation }: NativeStackScreenProps<RotasRaiz, 'Login'>) {
+  useAcordarServidor();
+
   const { entrar } = useAuth();
 
   const avisar = useSnackbar();

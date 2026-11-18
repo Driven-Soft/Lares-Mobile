@@ -10,6 +10,14 @@ export function mensagemDeErro(erro: unknown): string {
 
   const resposta = erro.response;
 
+  if (
+    !resposta &&
+    erro.config?.url === '/auth/login' &&
+    (erro.code === 'ECONNABORTED' || erro.code === 'ETIMEDOUT')
+  ) {
+    return 'O servidor demorou para responder. Tente entrar novamente.';
+  }
+
   if (!resposta) return 'Sem conexão com o servidor. Confira sua internet e tente de novo.';
 
   if (resposta.status === 401 && erro.config?.url === '/auth/login')

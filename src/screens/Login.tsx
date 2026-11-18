@@ -69,7 +69,7 @@ export function Login({ navigation }: NativeStackScreenProps<RotasRaiz, 'Login'>
         <Pressable
           disabled={enviando}
           accessibilityRole="link"
-          className="min-h-12 items-center justify-center"
+          className="min-h-toque items-center justify-center"
           onPress={() => navigation.navigate('Cadastro')}
         >
           <Text className="font-sans text-legenda text-texto-apoio">

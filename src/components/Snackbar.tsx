@@ -27,7 +27,7 @@ export function Snackbar({ aviso, fechar }: { aviso: Aviso; fechar: () => void }
       {aviso.tentarNovamente && (
         <Pressable
           accessibilityRole="button"
-          className="min-h-12 justify-center"
+          className="min-h-toque justify-center"
           onPress={() => {
             fechar();
             aviso.tentarNovamente?.();

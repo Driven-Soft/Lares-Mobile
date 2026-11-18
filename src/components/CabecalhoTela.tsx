@@ -18,7 +18,7 @@ export function CabecalhoTela({
           accessibilityRole="button"
           accessibilityLabel={fechar ? 'Fechar' : 'Voltar'}
           onPress={voltar}
-          className="min-h-12 min-w-12 items-center justify-center"
+          className="min-h-toque min-w-toque items-center justify-center"
         >
           <Feather name={fechar ? 'x' : 'arrow-left'} size={24} color={cores.texto} />
         </Pressable>

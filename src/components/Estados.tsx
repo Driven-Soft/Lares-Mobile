@@ -32,7 +32,14 @@ function Estado({
       >
         {titulo}
       </Text>
-      <Text className="text-center font-sans text-corpo text-texto-apoio">{mensagem}</Text>
+      {!!mensagem && (
+        <Text
+          accessibilityLiveRegion={erro ? 'polite' : 'none'}
+          className="text-center font-sans text-corpo text-texto-apoio"
+        >
+          {mensagem}
+        </Text>
+      )}
       {acao && aoPressionar && (
         <Botao
           titulo={acao}

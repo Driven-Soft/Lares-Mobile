@@ -56,7 +56,7 @@ export function Campo({
             onBlur?.(e);
           }}
           placeholderTextColor={cores.textoApoio}
-          className="min-h-12 flex-1 font-sans text-corpo text-texto"
+          className="min-h-toque flex-1 font-sans text-corpo text-texto"
         />
         {secureTextEntry && (
           <Pressable
@@ -64,7 +64,7 @@ export function Campo({
             accessibilityRole="button"
             accessibilityLabel={visivel ? 'Ocultar senha' : 'Mostrar senha'}
             onPress={() => mostrar(!visivel)}
-            className="min-h-12 min-w-12 items-center justify-center"
+            className="min-h-toque min-w-toque items-center justify-center"
           >
             <Feather name={visivel ? 'eye-off' : 'eye'} size={20} color={cores.textoApoio} />
           </Pressable>

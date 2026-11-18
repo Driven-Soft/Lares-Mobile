@@ -15,6 +15,7 @@ export function opcoesAbas({
 }): BottomTabNavigationOptions {
   return {
     headerShown: false,
+    tabBarAccessibilityLabel: route.name,
     tabBarActiveTintColor: cores.verde,
     tabBarInactiveTintColor: cores.textoApoio,
     tabBarLabelStyle: { fontFamily: 'Inter_600SemiBold' },

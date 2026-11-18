@@ -4,6 +4,7 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      spacing: { toque: '48px' },
       colors: {
         verde: '#1F6B4F',
         'verde-claro': '#E3F1EA',

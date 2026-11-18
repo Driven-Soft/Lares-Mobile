@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { Modal, Pressable, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Botao } from '../components/Botao';
@@ -13,7 +21,9 @@ import { STATUS } from '../theme/cores';
 import type { StatusOcorrencia } from '../models';
 
 const opcoes = ['Triadas', 'Recebidas', 'Em andamento', 'Resolvidas'] as const;
+
 type Opcao = (typeof opcoes)[number];
+
 const filtros: Record<Opcao, StatusOcorrencia> = {
   Triadas: 'TRIADA',
   Recebidas: 'RECEBIDA',
@@ -65,7 +75,7 @@ export function Fila() {
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={'Filtrar por bairro: ' + (bairro || 'Todos os bairros')}
-            className="min-h-12 shrink flex-row items-center gap-2 rounded-xl border border-borda bg-cartao px-3"
+            className="min-h-toque shrink flex-row items-center gap-2 rounded-xl border border-borda bg-cartao px-3"
             onPress={() => {
               editar(bairro);
               abrir(true);
@@ -86,18 +96,26 @@ export function Fila() {
       />
       <Modal visible={aberto} onRequestClose={() => abrir(false)} animationType="slide">
         <SafeAreaView style={{ flex: 1 }}>
-          <View className="flex-1 gap-4 bg-fundo p-4">
-            <CabecalhoTela titulo="Filtrar por bairro" voltar={() => abrir(false)} />
-            <Campo
-              rotulo="Bairro"
-              value={texto}
-              onChangeText={editar}
-              placeholder="Todos os bairros"
-              onSubmitEditing={() => aplicar(texto)}
-            />
-            <Botao titulo="Aplicar" aoPressionar={() => aplicar(texto)} />
-            <Botao titulo="Limpar" variante="secundario" aoPressionar={() => aplicar('')} />
-          </View>
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          >
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerClassName="grow gap-4 bg-fundo p-4"
+            >
+              <CabecalhoTela titulo="Filtrar por bairro" voltar={() => abrir(false)} />
+              <Campo
+                rotulo="Bairro"
+                value={texto}
+                onChangeText={editar}
+                placeholder="Todos os bairros"
+                onSubmitEditing={() => aplicar(texto)}
+              />
+              <Botao titulo="Aplicar" aoPressionar={() => aplicar(texto)} />
+              <Botao titulo="Limpar" variante="secundario" aoPressionar={() => aplicar('')} />
+            </ScrollView>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </Modal>
     </SafeAreaView>

@@ -97,7 +97,7 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
           <Pressable
             accessibilityRole="link"
             disabled={enviando}
-            className="min-h-12 justify-center"
+            className="min-h-toque justify-center"
             onPress={navigation.goBack}
           >
             <Text className="font-sans-semibold text-verde">Já tenho conta</Text>
@@ -113,7 +113,7 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
         accessibilityLabel="Voltar"
         disabled={enviando}
         onPress={navigation.goBack}
-        className="min-h-12 min-w-12 justify-center self-start"
+        className="min-h-toque min-w-toque justify-center self-start"
       >
         <Feather name="arrow-left" size={22} color={cores.texto} />
       </Pressable>

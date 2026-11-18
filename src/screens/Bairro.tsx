@@ -13,7 +13,9 @@ import { cores } from '../theme/cores';
 import type { StatusOcorrencia } from '../models';
 
 const opcoes = ['Todas', 'Recebida', 'Triada', 'Em andamento', 'Resolvida'] as const;
+
 type Opcao = (typeof opcoes)[number];
+
 const filtros: Record<Opcao, StatusOcorrencia | undefined> = {
   Todas: undefined,
   Recebida: 'RECEBIDA',
@@ -76,14 +78,15 @@ export function Bairro() {
               editar(valor);
               definirOrigem('manual');
             }}
-            className="min-h-12 flex-1 px-2 font-sans text-corpo text-texto"
+            className="min-h-toque flex-1 px-2 font-sans text-corpo text-texto"
           />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Usar minha localização"
+            accessibilityState={{ disabled: gps.buscando, busy: gps.buscando }}
             disabled={gps.buscando}
             onPress={localizar}
-            className="min-h-12 min-w-12 items-center justify-center"
+            className="min-h-toque min-w-toque items-center justify-center"
           >
             {gps.buscando ? (
               <ActivityIndicator color={cores.verde} />
@@ -93,7 +96,10 @@ export function Bairro() {
           </Pressable>
         </View>
         {origem !== 'manual' && (
-          <Text className="font-sans text-legenda text-texto-apoio">
+          <Text
+            accessibilityLiveRegion="polite"
+            className="font-sans text-legenda text-texto-apoio"
+          >
             {origem === 'gps' ? 'Preenchido pela sua localização' : gps.mensagem}
           </Text>
         )}

@@ -14,7 +14,7 @@ export function Chip({
       accessibilityRole="button"
       accessibilityState={{ selected: selecionado }}
       onPress={aoPressionar}
-      className={`min-h-12 justify-center rounded-full border px-4 ${selecionado ? 'border-verde bg-verde' : 'border-borda bg-cartao'}`}
+      className={`min-h-toque min-w-toque justify-center rounded-full border px-4 active:opacity-80 ${selecionado ? 'border-verde bg-verde' : 'border-borda bg-cartao'}`}
     >
       <Text
         className={`font-sans-semibold text-legenda ${selecionado ? 'text-cartao' : 'text-texto'}`}

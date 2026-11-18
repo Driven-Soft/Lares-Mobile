@@ -31,22 +31,23 @@ export function Botao({
   return (
     <Pressable
       accessibilityRole="button"
+      accessibilityLabel={carregando ? (textoCarregando ?? titulo) : titulo}
       accessibilityState={{ disabled: bloqueado, busy: carregando }}
       disabled={bloqueado}
       onPress={aoPressionar}
-      className="min-h-12 flex-row items-center justify-center gap-2 rounded-xl border px-4 py-2"
-      style={{
+      className="min-h-toque flex-row items-center justify-center gap-2 rounded-xl border px-4 py-2"
+      style={({ pressed }) => ({
         backgroundColor: primario ? cores.verde : cores.cartao,
         borderColor: primario ? cores.verde : cor,
-        opacity: bloqueado ? 0.7 : 1,
-      }}
+        opacity: bloqueado || pressed ? 0.8 : 1,
+      })}
     >
       {carregando ? (
         <ActivityIndicator color={cor} />
       ) : (
         icone && <Feather name={icone} size={18} color={cor} />
       )}
-      <Text className="text-center font-sans-bold text-corpo" style={{ color: cor }}>
+      <Text className="shrink text-center font-sans-bold text-corpo" style={{ color: cor }}>
         {carregando ? (textoCarregando ?? titulo) : titulo}
       </Text>
     </Pressable>

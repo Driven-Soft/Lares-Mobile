@@ -6,12 +6,10 @@ App Android de zeladoria colaborativa da Driven Soft para a disciplina Mobile Ap
 
 | Recurso | Acesso |
 | --- | --- |
-| Código-fonte | [Driven-Soft/Lares-Mobile](https://github.com/Driven-Soft/Lares-Mobile) · O professor precisa de acesso como leitor. |
-| Vídeo no YouTube | `VIDEO_A_PREENCHER` |
+| Código-fonte | [Driven-Soft/Lares-Mobile](https://github.com/Driven-Soft/Lares-Mobile)
+| Vídeo no YouTube | `O preenchimento altera o hash do commit` |
 | API Java | [Código-fonte](https://github.com/Driven-Soft/LaresApi-Java) · [Estado do serviço](https://laresapi-java.onrender.com/actuator/health) |
-| Firebase App Distribution | Acesso ao APK por convite. |
 
-Commit de referência do APK: `A_PREENCHER`
 
 ## Problema e solução
 
@@ -46,8 +44,6 @@ O cidadão registra um problema no bairro, a API faz a triagem por IA e o gestor
 | Inter | Fonte da interface. |
 
 Tela → Hook → Repository → Axios → API Java.
-
-[Guia de apresentação e fluxos do app](docs/GUIA_DE_APRESENTACAO.md)
 
 ## Estrutura de src/
 

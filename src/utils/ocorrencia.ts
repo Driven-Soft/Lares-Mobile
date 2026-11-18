@@ -1,3 +1,4 @@
+import { dataDaApi } from './datas';
 import type { Sessao, Ocorrencia, StatusOcorrencia } from '../models';
 
 const etapas: StatusOcorrencia[] = ['RECEBIDA', 'TRIADA', 'EM_ANDAMENTO', 'RESOLVIDA'];
@@ -24,4 +25,12 @@ export function podeEditarOuExcluir(sessao: Sessao, ocorrencia: Ocorrencia) {
     sessao.usuarioId === ocorrencia.usuario.id &&
     ['RECEBIDA', 'TRIADA'].includes(ocorrencia.status)
   );
+}
+
+export function limiteDaTriagem(aberturaDaTela: number, dataAbertura?: string) {
+  const registro = dataAbertura ? dataDaApi(dataAbertura).getTime() : NaN;
+
+  const inicio = Number.isFinite(registro) ? Math.min(registro, aberturaDaTela) : aberturaDaTela;
+
+  return inicio + 180_000;
 }

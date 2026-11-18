@@ -3,14 +3,14 @@ import { AppState } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { useOcorrencia } from './useOcorrencias';
 
-const duracaoDaTriagem = 180_000;
+import { limiteDaTriagem } from '../utils/ocorrencia';
 
 export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
   const focada = useIsFocused();
 
   const [estadoApp, definirEstadoApp] = useState(AppState.currentState);
 
-  const [limite] = useState(() => Date.now() + duracaoDaTriagem);
+  const [aberturaDaTela] = useState(Date.now);
 
   const [esgotado, esgotar] = useState(false);
 
@@ -23,8 +23,10 @@ export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
   }, []);
   const consulta = useOcorrencia(id, {
     ativa,
-    limite: acompanhar && !esgotado ? limite : undefined,
+    aberturaDaTela: acompanhar && !esgotado ? aberturaDaTela : undefined,
   });
+
+  const limite = limiteDaTriagem(aberturaDaTela, consulta.data?.dataAbertura);
 
   const aguardando = consulta.data?.status === 'RECEBIDA' && acompanhar;
 
@@ -36,5 +38,5 @@ export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
     return () => clearTimeout(timer);
   }, [ativa, aguardando, esgotado, limite]);
 
-  return { consulta, demorando: aguardando && esgotado };
+  return { consulta, demorando: aguardando && (esgotado || limite <= aberturaDaTela) };
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +24,16 @@ export function MinhasOcorrencias() {
 
   const nova = () => navigation.navigate('FormOcorrencia');
 
-  const atualizar = () => void consulta.refetch();
+  const [atualizando, definirAtualizando] = useState(false);
+
+  async function atualizar() {
+    definirAtualizando(true);
+    try {
+      await consulta.refetch();
+    } finally {
+      definirAtualizando(false);
+    }
+  }
 
   const mais = () => {
     if (consulta.hasNextPage && !consulta.isFetching) void consulta.fetchNextPage();
@@ -61,7 +71,7 @@ export function MinhasOcorrencias() {
               abrir={() => navigation.navigate('Detalhe', { id: item.id })}
             />
           )}
-          refreshing={consulta.isRefetching}
+          refreshing={atualizando}
           onRefresh={atualizar}
           onEndReached={() => {
             if (!consulta.isFetchNextPageError) mais();

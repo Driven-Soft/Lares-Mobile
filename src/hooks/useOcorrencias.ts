@@ -1,4 +1,5 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { limiteDaTriagem } from '../utils/ocorrencia';
 import { statusDoErro } from '../services/erroApi';
 import { useAuth } from '../context/AuthContext';
 import * as repository from '../repositories/ocorrenciaRepository';
@@ -20,7 +21,7 @@ export function useMinhasOcorrencias() {
 
 export function useOcorrencia(
   id?: number,
-  { ativa = true, limite }: { ativa?: boolean; limite?: number } = {},
+  { ativa = true, aberturaDaTela }: { ativa?: boolean; aberturaDaTela?: number } = {},
 ) {
   const { sessao } = useAuth();
 
@@ -29,8 +30,8 @@ export function useOcorrencia(
     enabled: !!sessao && id !== undefined && ativa,
     refetchInterval: (query) =>
       ativa &&
-      limite !== undefined &&
-      Date.now() < limite &&
+      aberturaDaTela !== undefined &&
+      Date.now() < limiteDaTriagem(aberturaDaTela, query.state.data?.dataAbertura) &&
       ![401, 403, 404].includes(statusDoErro(query.state.error) ?? 0) &&
       query.state.data?.status === 'RECEBIDA'
         ? 3000

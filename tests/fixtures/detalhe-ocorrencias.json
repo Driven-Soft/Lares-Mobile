@@ -1,0 +1,69 @@
+{
+  "recebidaSemTriagem": {
+    "id": 1,
+    "descricao": "Poste apagado na esquina.",
+    "bairro": "Centro",
+    "latitude": null,
+    "longitude": null,
+    "status": "RECEBIDA",
+    "prioridade": null,
+    "prazoEstimadoDias": null,
+    "resumoIa": null,
+    "mensagemCidadao": null,
+    "categoria": null,
+    "usuario": {
+      "id": 10,
+      "nome": "Moradora de teste"
+    },
+    "dataAbertura": "2026-11-18T02:19:39.247847146",
+    "dataAtualizacao": "2026-11-18T02:19:39.247847146",
+    "historico": [
+      {
+        "statusAnterior": null,
+        "statusNovo": "RECEBIDA",
+        "comentario": null,
+        "usuarioNome": "Moradora de teste",
+        "dataAlteracao": "2026-11-18T02:19:39.247847146"
+      }
+    ]
+  },
+  "triadaSemTextosEPrazo": {
+    "id": 1,
+    "descricao": "Poste apagado na esquina.",
+    "bairro": "Centro",
+    "latitude": null,
+    "longitude": null,
+    "status": "TRIADA",
+    "prioridade": "ALTA",
+    "prazoEstimadoDias": null,
+    "resumoIa": null,
+    "mensagemCidadao": null,
+    "categoria": {
+      "id": 2,
+      "codigo": "ILUMINACAO",
+      "nome": "Iluminação pública"
+    },
+    "usuario": {
+      "id": 10,
+      "nome": "Moradora de teste"
+    },
+    "dataAbertura": "2026-11-18T02:19:39.247847146",
+    "dataAtualizacao": "2026-11-18T02:20:40",
+    "historico": [
+      {
+        "statusAnterior": null,
+        "statusNovo": "RECEBIDA",
+        "comentario": null,
+        "usuarioNome": "Moradora de teste",
+        "dataAlteracao": "2026-11-18T02:19:39.247847146"
+      },
+      {
+        "statusAnterior": "RECEBIDA",
+        "statusNovo": "TRIADA",
+        "comentario": null,
+        "usuarioNome": null,
+        "dataAlteracao": "2026-11-18T02:20:40"
+      }
+    ]
+  }
+}

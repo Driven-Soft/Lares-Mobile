@@ -7,11 +7,9 @@ App Android de zeladoria colaborativa da Driven Soft para a disciplina Mobile Ap
 | Recurso | Acesso |
 | --- | --- |
 | Código-fonte | [Driven-Soft/Lares-Mobile](https://github.com/Driven-Soft/Lares-Mobile)
-| Vídeo no YouTube | `VIDEO_A_PREENCHER` |
+| Vídeo no YouTube | `O preenchimento altera o hash do commit` |
 | API Java | [Código-fonte](https://github.com/Driven-Soft/LaresApi-Java) · [Estado do serviço](https://laresapi-java.onrender.com/actuator/health) |
 
-
-Commit de referência do APK: `A_PREENCHER`
 
 ## Problema e solução
 

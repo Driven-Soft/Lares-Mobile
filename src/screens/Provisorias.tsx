@@ -2,8 +2,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CabecalhoTela } from '../components/CabecalhoTela';
 
 const titulos: Record<string, string> = {
-  Detalhe: 'Ocorrência',
-  FormOcorrencia: 'Nova ocorrência',
   AtualizarStatus: 'Atualizar status',
 };
 

@@ -6,7 +6,7 @@ import { FormOcorrencia } from '../screens/FormOcorrencia';
 import { Sobre } from '../screens/Sobre';
 import { Cadastro } from '../screens/Cadastro';
 import { Login } from '../screens/Login';
-import { TelaProvisoria } from '../screens/Provisorias';
+import { AtualizarStatus } from '../screens/AtualizarStatus';
 import { cores } from '../theme/cores';
 import { CidadaoTabs } from './CidadaoTabs';
 import { GestorTabs } from './GestorTabs';
@@ -35,7 +35,7 @@ export function RootStack() {
           />
           <Pilha.Screen name="Detalhe" component={Detalhe} />
           {sessao.papel === 'GESTOR' ? (
-            <Pilha.Screen name="AtualizarStatus" component={TelaProvisoria} />
+            <Pilha.Screen name="AtualizarStatus" component={AtualizarStatus} />
           ) : (
             <Pilha.Screen name="FormOcorrencia" component={FormOcorrencia} />
           )}

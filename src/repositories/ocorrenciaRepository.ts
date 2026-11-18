@@ -1,5 +1,17 @@
 import { api } from '../services/api';
-import type { FiltroBusca, Ocorrencia, OcorrenciaRequest, Pagina } from '../models';
+import type {
+  AtualizarStatusRequest,
+  FiltroBusca,
+  Ocorrencia,
+  OcorrenciaRequest,
+  Pagina,
+} from '../models';
+
+export async function atualizarStatus(id: number, dados: AtualizarStatusRequest) {
+  const { data } = await api.patch<Ocorrencia>(`/ocorrencias/${id}/status`, dados);
+
+  return data;
+}
 
 export async function buscar(
   filtros: FiltroBusca,

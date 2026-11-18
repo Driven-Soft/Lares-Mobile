@@ -3,7 +3,21 @@ import { limiteDaTriagem } from '../utils/ocorrencia';
 import { statusDoErro } from '../services/erroApi';
 import { useAuth } from '../context/AuthContext';
 import * as repository from '../repositories/ocorrenciaRepository';
-import type { FiltroBusca, Ocorrencia, OcorrenciaRequest } from '../models';
+import type { AtualizarStatusRequest, FiltroBusca, Ocorrencia, OcorrenciaRequest } from '../models';
+
+export function useAtualizarStatus() {
+  const invalidar = useInvalidarOcorrencias();
+
+  return useMutation({
+    mutationFn: ({ id, dados }: { id: number; dados: AtualizarStatusRequest }) =>
+      repository.atualizarStatus(id, dados),
+    retry: false,
+    onSuccess: invalidar,
+    onError: (erro) => {
+      if (statusDoErro(erro) === 409) invalidar();
+    },
+  });
+}
 
 export function useBuscarOcorrencias(filtros: FiltroBusca, ativa = true) {
   const { sessao } = useAuth();

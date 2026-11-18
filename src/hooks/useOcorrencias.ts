@@ -3,7 +3,21 @@ import { limiteDaTriagem } from '../utils/ocorrencia';
 import { statusDoErro } from '../services/erroApi';
 import { useAuth } from '../context/AuthContext';
 import * as repository from '../repositories/ocorrenciaRepository';
-import type { Ocorrencia, OcorrenciaRequest } from '../models';
+import type { FiltroBusca, Ocorrencia, OcorrenciaRequest } from '../models';
+
+export function useBuscarOcorrencias(filtros: FiltroBusca, ativa = true) {
+  const { sessao } = useAuth();
+
+  return useInfiniteQuery({
+    queryKey: ['ocorrencias', 'busca', sessao?.usuarioId, filtros],
+    enabled: !!sessao && ativa,
+    initialPageParam: 0,
+    queryFn: ({ pageParam, signal }) => repository.buscar(filtros, pageParam, 10, signal),
+    getNextPageParam: (pagina) =>
+      pagina.pagina + 1 < pagina.totalPaginas ? pagina.pagina + 1 : undefined,
+    retry: false,
+  });
+}
 
 export function useMinhasOcorrencias() {
   const { sessao } = useAuth();

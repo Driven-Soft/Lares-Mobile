@@ -1,5 +1,19 @@
 import { api } from '../services/api';
-import type { Ocorrencia, OcorrenciaRequest, Pagina } from '../models';
+import type { FiltroBusca, Ocorrencia, OcorrenciaRequest, Pagina } from '../models';
+
+export async function buscar(
+  filtros: FiltroBusca,
+  page: number,
+  size: number,
+  signal?: AbortSignal,
+) {
+  const { data } = await api.get<Pagina<Ocorrencia>>('/ocorrencias', {
+    params: { ...filtros, page, size },
+    signal,
+  });
+
+  return data;
+}
 
 export async function listarMinhas(page: number, signal?: AbortSignal) {
   const { data } = await api.get<Pagina<Ocorrencia>>('/ocorrencias/minhas', {

@@ -10,11 +10,7 @@ export function mensagemDeErro(erro: unknown): string {
 
   const resposta = erro.response;
 
-  if (
-    !resposta &&
-    erro.config?.url === '/auth/login' &&
-    (erro.code === 'ECONNABORTED' || erro.code === 'ETIMEDOUT')
-  ) {
+  if (erro.config?.url === '/auth/login' && tempoEsgotado(erro)) {
     return 'O servidor demorou para responder. Tente entrar novamente.';
   }
 
@@ -37,6 +33,10 @@ export function camposDoErro(erro: unknown) {
   return isAxiosError<ErroApi>(erro) ? erro.response?.data?.campos : undefined;
 }
 
-export function semRespostaDoServidor(erro: unknown) {
-  return isAxiosError(erro) && !erro.response;
+export function tempoEsgotado(erro: unknown) {
+  return (
+    isAxiosError(erro) &&
+    !erro.response &&
+    (erro.code === 'ECONNABORTED' || erro.code === 'ETIMEDOUT')
+  );
 }

@@ -10,12 +10,7 @@ import { Campo } from '../components/Campo';
 import { useAuth } from '../context/AuthContext';
 import { useSnackbar } from '../context/SnackbarContext';
 import type { RotasRaiz } from '../routes/types';
-import {
-  mensagemDeErro,
-  camposDoErro,
-  statusDoErro,
-  semRespostaDoServidor,
-} from '../services/erroApi';
+import { mensagemDeErro, camposDoErro, statusDoErro, tempoEsgotado } from '../services/erroApi';
 import { emailValido, senhaValida } from '../utils/texto';
 import { cores } from '../theme/cores';
 
@@ -83,7 +78,7 @@ export function Cadastro({ navigation }: NativeStackScreenProps<RotasRaiz, 'Cada
 
       const campos = camposDoErro(erro);
 
-      if (semRespostaDoServidor(erro)) definirSemConfirmacao(true);
+      if (tempoEsgotado(erro)) definirSemConfirmacao(true);
       else if (statusDoErro(erro) === 409)
         definirErros({ email: 'Este e-mail já tem conta. Entre ou use outro.' });
       else if (statusDoErro(erro) === 400 && campos && Object.keys(campos).some((c) => c in dados))

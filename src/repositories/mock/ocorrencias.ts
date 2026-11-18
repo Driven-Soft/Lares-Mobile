@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import exemplos from '../../../tests/fixtures/detalhe-ocorrencias.json';
+import exemplos from './detalhe-ocorrencias.json';
 import type {
   AtualizarStatusRequest,
   Categoria,

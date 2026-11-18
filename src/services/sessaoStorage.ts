@@ -1,13 +1,28 @@
 import * as SecureStore from 'expo-secure-store';
 import type { Sessao } from '../models';
+import { usarMock } from '../config/mock';
+
+let sessaoDeTeste: Sessao | null = null;
 
 const chave = 'lares.sessao';
 
-export function salvarSessao(sessao: Sessao) {
+export async function salvarSessao(sessao: Sessao) {
+  if (usarMock) {
+    sessaoDeTeste = sessao;
+
+    return;
+  }
+
   return SecureStore.setItemAsync(chave, JSON.stringify(sessao));
 }
 
-export function apagarSessao() {
+export async function apagarSessao() {
+  if (usarMock) {
+    sessaoDeTeste = null;
+
+    return;
+  }
+
   return SecureStore.deleteItemAsync(chave);
 }
 
@@ -28,6 +43,8 @@ function sessaoValida(dados: unknown): dados is Sessao {
 }
 
 export async function restaurarSessao(): Promise<Sessao | null> {
+  if (usarMock) return sessaoDeTeste;
+
   const texto = await SecureStore.getItemAsync(chave);
 
   if (!texto) return null;

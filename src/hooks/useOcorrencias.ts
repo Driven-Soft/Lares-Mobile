@@ -2,8 +2,10 @@ import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tansta
 import { limiteDaTriagem } from '../utils/ocorrencia';
 import { statusDoErro } from '../services/erroApi';
 import { useAuth } from '../context/AuthContext';
-import * as repository from '../repositories/ocorrenciaRepository';
+import repositories from '../repositories';
 import type { AtualizarStatusRequest, FiltroBusca, Ocorrencia, OcorrenciaRequest } from '../models';
+
+const { ocorrenciaRepository: repository } = repositories;
 
 export function useAtualizarStatus() {
   const invalidar = useInvalidarOcorrencias();

@@ -12,6 +12,10 @@ Use `npm run format`, `npm run typecheck` e `npm run lint` antes de fazer commit
 
 ## Telas e papéis previstos
 
+Para testar a triagem e as falhas sem acessar a API, defina `EXPO_PUBLIC_USE_MOCK=true` em `.env.local`, reinicie o Expo e recarregue o app. Entre com `cidadao@lares.test` ou `gestor@lares.test`, ambos com a senha fictícia `LaresTeste7`. Contas, sessão e ocorrências do mock ficam na memória até recarregar o aplicativo. Remova a variável e reinicie o Expo para voltar à API.
+
+No mock, uma nova ocorrência recebe triagem após cerca de cinco segundos. A conta de cidadão já tem quatro casos identificados pela descrição no bairro Centro: recebida permanentemente, triada sem textos, prazo ausente e erro de conexão na primeira abertura do detalhe. No último caso, toque em **Tentar novamente** para recuperar.
+
 Login, Cadastro, Minhas ocorrências, Nova/Editar ocorrência, Detalhe, Bairro, Fila, Atualizar status, Perfil e Sobre o app. Cidadãos registram ocorrências e gestores atualizam o atendimento. O detalhe apresenta a linha do tempo aos dois papéis.
 
 ## Arquitetura e tecnologias

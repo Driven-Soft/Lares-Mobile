@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
-import { acordarServidor } from '../repositories/authRepository';
+import repositories from '../repositories';
+
+const { acordarServidor } = repositories.authRepository;
 
 export function useAcordarServidor() {
   useEffect(() => {

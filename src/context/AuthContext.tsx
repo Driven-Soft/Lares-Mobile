@@ -8,11 +8,13 @@ import {
   type PropsWithChildren,
 } from 'react';
 import type { Sessao, LoginRequest } from '../models';
-import * as authRepository from '../repositories/authRepository';
+import repositories from '../repositories';
 import { configurarAutenticacao } from '../services/api';
 import { apagarSessao, restaurarSessao, salvarSessao } from '../services/sessaoStorage';
 import { queryClient } from '../config/queryClient';
 import { useSnackbar } from './SnackbarContext';
+
+const { authRepository } = repositories;
 
 interface Autenticacao {
   sessao: Sessao | null;

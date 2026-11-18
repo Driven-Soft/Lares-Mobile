@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { listar } from '../repositories/categoriaRepository';
+import repositories from '../repositories';
 import { useAuth } from '../context/AuthContext';
+
+const { listar } = repositories.categoriaRepository;
 
 export function useCategorias() {
   const { sessao } = useAuth();

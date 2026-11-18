@@ -1,5 +1,14 @@
+// A API Java envia LocalDateTime em UTC, com até nove casas na fração de segundo.
+export function dataDaApi(iso: string) {
+  const normalizada = iso.replace(/(\.\d{3})\d+/, '$1');
+
+  const semFuso = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?$/.test(normalizada);
+
+  return new Date(semFuso ? normalizada + 'Z' : normalizada);
+}
+
 export function formatarData(iso: string, comHora = false) {
-  const data = new Date(iso);
+  const data = dataDaApi(iso);
 
   if (Number.isNaN(data.getTime())) return '—';
 
@@ -12,7 +21,7 @@ export function formatarData(iso: string, comHora = false) {
 }
 
 export function haQuantosDias(iso: string, agora = new Date()) {
-  const data = new Date(iso);
+  const data = dataDaApi(iso);
 
   if (Number.isNaN(data.getTime())) return '—';
 

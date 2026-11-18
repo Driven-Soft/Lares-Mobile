@@ -87,21 +87,23 @@ function ConteudoDetalhe({ route, navigation }: Props) {
     );
   }
 
-  const ausente = statusDoErro(consulta.error) === 404;
+  const codigo = statusDoErro(consulta.error);
+
+  const falhaTemporaria = consulta.isError && (codigo === undefined || codigo >= 500);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View className="px-4 pt-2">
         <CabecalhoTela titulo="Ocorrência" voltar={navigation.goBack} />
       </View>
-      {ausente ? (
+      {codigo === 404 ? (
         <EstadoVazio
           titulo="Esta ocorrência não existe mais."
           mensagem=""
           acao="Voltar"
           aoPressionar={navigation.goBack}
         />
-      ) : consulta.isError ? (
+      ) : consulta.isError && (!ocorrencia || !falhaTemporaria) ? (
         <EstadoErro mensagem={mensagemDeErro(consulta.error)} tentarNovamente={atualizar} />
       ) : !ocorrencia ? (
         <View className="gap-4 p-4">
@@ -121,6 +123,11 @@ function ConteudoDetalhe({ route, navigation }: Props) {
               />
             }
           >
+            {falhaTemporaria && (
+              <Text accessibilityLiveRegion="polite" className="font-sans text-legenda text-erro">
+                {mensagemDeErro(consulta.error)} Puxe para atualizar.
+              </Text>
+            )}
             <ProgressoStatus status={ocorrencia.status} />
             <Text className="font-sans text-corpo text-texto">{ocorrencia.descricao}</Text>
             <View className="flex-row flex-wrap gap-3">

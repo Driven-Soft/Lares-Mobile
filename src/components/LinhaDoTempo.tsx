@@ -8,6 +8,14 @@ function textoDoEvento(evento: HistoricoStatus, ocorrencia: Ocorrencia) {
 
   if (evento.statusNovo === 'RECEBIDA') return 'Ocorrência registrada pelo app.';
 
+  // O histórico não informa a categoria anterior a uma correção do gestor.
+  if (
+    evento.statusNovo === 'TRIADA' &&
+    evento.usuarioNome === null &&
+    ocorrencia.status !== 'TRIADA'
+  )
+    return 'Ocorrência classificada pela IA.';
+
   if (
     evento.statusNovo === 'TRIADA' &&
     evento.usuarioNome === null &&

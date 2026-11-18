@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { AppState } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { useOcorrencia } from './useOcorrencias';
-
 import { limiteDaTriagem } from '../utils/ocorrencia';
+import type { StatusOcorrencia } from '../models';
 
 export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
   const focada = useIsFocused();
+
+  const cliente = useQueryClient();
+
+  const ultimoStatus = useRef<StatusOcorrencia | undefined>(undefined);
 
   const [estadoApp, definirEstadoApp] = useState(AppState.currentState);
 
@@ -21,6 +26,7 @@ export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
 
     return () => inscricao.remove();
   }, []);
+
   const consulta = useOcorrencia(id, {
     ativa,
     aberturaDaTela: acompanhar && !esgotado ? aberturaDaTela : undefined,
@@ -28,7 +34,22 @@ export function useDetalheOcorrencia(id: number, acompanhar: boolean) {
 
   const limite = limiteDaTriagem(aberturaDaTela, consulta.data?.dataAbertura);
 
-  const aguardando = consulta.data?.status === 'RECEBIDA' && acompanhar;
+  const status = consulta.data?.status;
+
+  const aguardando = status === 'RECEBIDA' && acompanhar;
+
+  useEffect(() => {
+    if (!status) return;
+
+    if (ultimoStatus.current === 'RECEBIDA' && status !== 'RECEBIDA') {
+      void cliente.invalidateQueries({
+        queryKey: ['ocorrencias'],
+        predicate: (query) => query.queryKey[1] !== 'detalhe',
+      });
+    }
+
+    ultimoStatus.current = status;
+  }, [cliente, status]);
 
   useEffect(() => {
     if (!ativa || !aguardando || esgotado) return;

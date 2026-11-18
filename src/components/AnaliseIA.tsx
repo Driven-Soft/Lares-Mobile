@@ -24,7 +24,7 @@ export function AnaliseIA({
 }) {
   const recebida = ocorrencia.status === 'RECEBIDA';
 
-  const mensagem = visao === 'gestor' ? ocorrencia.resumoIa : ocorrencia.mensagemCidadao;
+  const mensagem = (visao === 'gestor' ? ocorrencia.resumoIa : ocorrencia.mensagemCidadao)?.trim();
 
   const analisando = recebida && visao !== 'gestor' && !demorando;
 

@@ -14,7 +14,8 @@
     "plugins": [
       "expo-font",
       "expo-splash-screen",
-      "expo-secure-store"
+      "expo-secure-store",
+      ["expo-location", {"locationWhenInUsePermission":"O Lares usa sua localização para preencher o bairro da ocorrência."}]
     ]
   }
 }

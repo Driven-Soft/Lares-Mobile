@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,7 @@ import { useAuth } from '../context/AuthContext';
 import { useMinhasOcorrencias } from '../hooks/useOcorrencias';
 import type { RotasRaiz } from '../routes/types';
 import { cores } from '../theme/cores';
+import { mensagemDeErro } from '../services/erroApi';
 
 export function MinhasOcorrencias() {
   const navigation = useNavigation<NativeStackNavigationProp<RotasRaiz>>();
@@ -23,6 +24,8 @@ export function MinhasOcorrencias() {
   const itens = consulta.data?.pages.flatMap((pagina) => pagina.itens) ?? [];
 
   const nova = () => navigation.navigate('FormOcorrencia');
+
+  const abrir = useCallback((id: number) => navigation.navigate('Detalhe', { id }), [navigation]);
 
   const [atualizando, definirAtualizando] = useState(false);
 
@@ -54,10 +57,7 @@ export function MinhasOcorrencias() {
           ))}
         </View>
       ) : consulta.isError && !itens.length ? (
-        <EstadoErro
-          mensagem="Confira sua internet. Se o app ficou um tempo parado, o servidor pode levar até 1 minuto para responder."
-          tentarNovamente={atualizar}
-        />
+        <EstadoErro mensagem={mensagemDeErro(consulta.error)} tentarNovamente={atualizar} />
       ) : (
         <FlatList
           data={itens}
@@ -65,12 +65,7 @@ export function MinhasOcorrencias() {
           contentContainerClassName={
             itens.length ? 'grow gap-3 px-4 pb-24' : 'grow justify-center px-4'
           }
-          renderItem={({ item }) => (
-            <CartaoOcorrencia
-              ocorrencia={item}
-              abrir={() => navigation.navigate('Detalhe', { id: item.id })}
-            />
-          )}
+          renderItem={({ item }) => <CartaoOcorrencia ocorrencia={item} abrir={abrir} />}
           refreshing={atualizando}
           onRefresh={atualizar}
           onEndReached={() => {

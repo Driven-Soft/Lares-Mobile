@@ -92,7 +92,7 @@ export function Fila() {
       <ListaBusca
         consulta={consulta}
         dica="Tente outro status ou altere o bairro."
-        cartao={(item, acao) => <CartaoFila ocorrencia={item} abrir={acao} />}
+        CartaoItem={CartaoFila}
       />
       <Modal visible={aberto} onRequestClose={() => abrir(false)} animationType="slide">
         <SafeAreaView style={{ flex: 1 }}>

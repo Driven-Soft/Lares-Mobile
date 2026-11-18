@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from 'react';
+import { useCallback, useState, type ComponentType } from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,13 +14,15 @@ import { Botao } from './Botao';
 export function ListaBusca({
   consulta,
   dica,
-  cartao,
+  CartaoItem,
 }: {
   consulta: ReturnType<typeof useBuscarOcorrencias>;
   dica: string;
-  cartao: (item: Ocorrencia, abrir: () => void) => ReactElement;
+  CartaoItem: ComponentType<{ ocorrencia: Ocorrencia; abrir: (id: number) => void }>;
 }) {
   const navigation = useNavigation<NativeStackNavigationProp<RotasRaiz>>();
+
+  const abrir = useCallback((id: number) => navigation.navigate('Detalhe', { id }), [navigation]);
 
   const [atualizando, atualizar] = useState(false);
 
@@ -57,7 +59,7 @@ export function ListaBusca({
       keyboardShouldPersistTaps="handled"
       keyExtractor={(item) => String(item.id)}
       contentContainerClassName="grow gap-3 px-4 pb-4"
-      renderItem={({ item }) => cartao(item, () => navigation.navigate('Detalhe', { id: item.id }))}
+      renderItem={({ item }) => <CartaoItem ocorrencia={item} abrir={abrir} />}
       refreshing={atualizando}
       onRefresh={recarregar}
       onEndReachedThreshold={0.3}

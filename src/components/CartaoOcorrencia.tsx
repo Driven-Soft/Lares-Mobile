@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 import { Cartao } from './Cartao';
@@ -6,15 +7,15 @@ import { formatarData } from '../utils/datas';
 import { cores } from '../theme/cores';
 import type { Ocorrencia } from '../models';
 
-export function CartaoOcorrencia({
+export const CartaoOcorrencia = memo(function CartaoOcorrencia({
   ocorrencia,
   abrir,
 }: {
   ocorrencia: Ocorrencia;
-  abrir: () => void;
+  abrir: (id: number) => void;
 }) {
   return (
-    <Pressable accessibilityRole="button" onPress={abrir}>
+    <Pressable accessibilityRole="button" onPress={() => abrir(ocorrencia.id)}>
       <Cartao>
         <View className="flex-row items-center justify-between gap-2">
           <Etiqueta status={ocorrencia.status} />
@@ -49,4 +50,4 @@ export function CartaoOcorrencia({
       </Cartao>
     </Pressable>
   );
-}
+});

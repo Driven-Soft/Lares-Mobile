@@ -120,7 +120,7 @@ export function Bairro() {
         <ListaBusca
           consulta={consulta}
           dica="Tente outro bairro ou altere o filtro de status."
-          cartao={(item, abrir) => <CartaoOcorrencia ocorrencia={item} abrir={abrir} />}
+          CartaoItem={CartaoOcorrencia}
         />
       ) : (
         <ActivityIndicator color={cores.verde} />

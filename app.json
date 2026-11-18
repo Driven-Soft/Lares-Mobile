@@ -3,17 +3,27 @@
     "name": "Lares",
     "slug": "lares-mobile",
     "version": "1.0.0",
+    "icon": "./assets/images/icon.png",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
-      "package": "br.com.fiap.drivensoft.lares"
+      "package": "br.com.fiap.drivensoft.lares",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#1F6B4F"
+      }
     },
     "ios": {
       "supportsTablet": false
     },
     "plugins": [
       "expo-font",
-      "expo-splash-screen",
+      ["expo-splash-screen", {
+        "image": "./assets/images/splash-icon.png",
+        "imageWidth": 160,
+        "resizeMode": "contain",
+        "backgroundColor": "#F6F7F5"
+      }],
       "expo-secure-store",
       ["expo-location", {"locationWhenInUsePermission":"O Lares usa sua localização para preencher o bairro da ocorrência."}]
     ]

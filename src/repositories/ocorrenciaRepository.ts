@@ -22,6 +22,10 @@ export async function criar(dados: OcorrenciaRequest) {
   return data;
 }
 
+export async function excluir(id: number) {
+  await api.delete<void>(`/ocorrencias/${id}`);
+}
+
 export async function atualizar(id: number, dados: OcorrenciaRequest) {
   const { data } = await api.put<Ocorrencia>(`/ocorrencias/${id}`, dados);
 

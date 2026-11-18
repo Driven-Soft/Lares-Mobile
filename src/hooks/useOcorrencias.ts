@@ -1,7 +1,8 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { statusDoErro } from '../services/erroApi';
 import { useAuth } from '../context/AuthContext';
 import * as repository from '../repositories/ocorrenciaRepository';
-import type { OcorrenciaRequest } from '../models';
+import type { Ocorrencia, OcorrenciaRequest } from '../models';
 
 export function useMinhasOcorrencias() {
   const { sessao } = useAuth();
@@ -17,12 +18,23 @@ export function useMinhasOcorrencias() {
   });
 }
 
-export function useOcorrencia(id?: number) {
+export function useOcorrencia(
+  id?: number,
+  { ativa = true, limite }: { ativa?: boolean; limite?: number } = {},
+) {
   const { sessao } = useAuth();
 
-  return useQuery({
+  return useQuery<Ocorrencia>({
     queryKey: ['ocorrencias', 'detalhe', sessao?.usuarioId, id],
-    enabled: !!sessao && id !== undefined,
+    enabled: !!sessao && id !== undefined && ativa,
+    refetchInterval: (query) =>
+      ativa &&
+      limite !== undefined &&
+      Date.now() < limite &&
+      ![401, 403, 404].includes(statusDoErro(query.state.error) ?? 0) &&
+      query.state.data?.status === 'RECEBIDA'
+        ? 3000
+        : false,
     queryFn: ({ signal }) => {
       if (id === undefined) throw new Error('Ocorrência sem identificador.');
 
@@ -38,6 +50,30 @@ function useInvalidarOcorrencias() {
   return () => {
     void cliente.invalidateQueries({ queryKey: ['ocorrencias'] });
   };
+}
+
+export function useExcluirOcorrencia() {
+  const cliente = useQueryClient();
+
+  const { sessao } = useAuth();
+
+  const invalidar = useInvalidarOcorrencias();
+
+  return useMutation({
+    mutationFn: repository.excluir,
+    retry: false,
+    onSuccess: (_, id) => {
+      cliente.removeQueries({
+        queryKey: ['ocorrencias', 'detalhe', sessao?.usuarioId, id],
+        exact: true,
+      });
+      void cliente.invalidateQueries({
+        queryKey: ['ocorrencias'],
+        predicate: (q) => q.queryKey[1] !== 'detalhe',
+      });
+    },
+    onError: invalidar,
+  });
 }
 
 export function useCriarOcorrencia() {

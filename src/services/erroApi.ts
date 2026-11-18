@@ -34,9 +34,5 @@ export function camposDoErro(erro: unknown) {
 }
 
 export function tempoEsgotado(erro: unknown) {
-  return (
-    isAxiosError(erro) &&
-    !erro.response &&
-    (erro.code === 'ECONNABORTED' || erro.code === 'ETIMEDOUT')
-  );
+  return isAxiosError(erro) && !erro.response && erro.code === 'ETIMEDOUT';
 }

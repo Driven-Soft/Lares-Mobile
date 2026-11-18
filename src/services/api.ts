@@ -3,6 +3,7 @@ import { create, isAxiosError } from 'axios';
 export const api = create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 20_000,
+  transitional: { clarifyTimeoutError: true },
 });
 
 export function configurarAutenticacao(

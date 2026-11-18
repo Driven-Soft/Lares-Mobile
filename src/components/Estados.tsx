@@ -19,11 +19,13 @@ function Estado({
 }: Props & { erro?: boolean }) {
   return (
     <View className="flex-1 items-center justify-center gap-3 px-6">
-      <Feather
-        name={erro ? 'wifi-off' : 'home'}
-        size={36}
-        color={erro ? cores.erro : cores.verde}
-      />
+      <View className={erro ? 'rounded-full bg-erro-claro p-5' : 'rounded-full bg-verde-claro p-5'}>
+        <Feather
+          name={erro ? 'wifi-off' : 'home'}
+          size={36}
+          color={erro ? cores.erro : cores.verde}
+        />
+      </View>
       <Text
         accessibilityRole="header"
         className="text-center font-sans-semibold text-secao text-texto"

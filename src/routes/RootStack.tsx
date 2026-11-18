@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { useAuth } from '../context/AuthContext';
-import { DetalheProvisorio } from '../screens/DetalheProvisorio';
+import { Detalhe } from '../screens/Detalhe';
 import { FormOcorrencia } from '../screens/FormOcorrencia';
 import { Sobre } from '../screens/Sobre';
 import { Cadastro } from '../screens/Cadastro';
@@ -33,7 +33,7 @@ export function RootStack() {
             name="Tabs"
             component={sessao.papel === 'GESTOR' ? GestorTabs : CidadaoTabs}
           />
-          <Pilha.Screen name="Detalhe" component={DetalheProvisorio} />
+          <Pilha.Screen name="Detalhe" component={Detalhe} />
           {sessao.papel === 'GESTOR' ? (
             <Pilha.Screen name="AtualizarStatus" component={TelaProvisoria} />
           ) : (

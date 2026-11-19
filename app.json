@@ -26,6 +26,9 @@
       }],
       "expo-secure-store",
       ["expo-location", {"locationWhenInUsePermission":"O Lares usa sua localização para preencher o bairro da ocorrência."}]
-    ]
+    ],
+    "extra": {
+      "commitHash": "e6b2ff3"
+    }
   }
 }

@@ -133,7 +133,7 @@ export function Login({ navigation }: NativeStackScreenProps<RotasRaiz, 'Login'>
         carregando={enviando}
         textoCarregando="Entrando…"
       />
-      {enviando && <AcordandoServidor />}
+      {enviando && <AcordandoServidor login />}
     </FormularioConta>
   );
 }

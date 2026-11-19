@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { Cartao } from './Cartao';
 import { cores } from '../theme/cores';
 
-export function AcordandoServidor() {
+export function AcordandoServidor({ login = false }: { login?: boolean }) {
   const [progresso] = useState(() => new Animated.Value(0));
 
   useEffect(() => {
@@ -25,7 +25,10 @@ export function AcordandoServidor() {
         <View className="flex-1">
           <Text className="font-sans-semibold text-texto">Acordando o servidor…</Text>
           <Text className="font-sans text-legenda text-texto-apoio">
-            Na primeira vez pode levar até 1 minuto. Não precisa fechar o app.
+            {login
+              ? 'O primeiro login pode levar até 4 minutos.'
+              : 'O primeiro cadastro pode levar até 90 segundos.'}{' '}
+            Mantenha o app aberto.
           </Text>
         </View>
       </View>

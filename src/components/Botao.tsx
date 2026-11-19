@@ -35,12 +35,22 @@ export function Botao({
       accessibilityState={{ disabled: bloqueado, busy: carregando }}
       disabled={bloqueado}
       onPress={aoPressionar}
-      className="min-h-toque flex-row items-center justify-center gap-2 rounded-xl border px-4 py-2"
-      style={({ pressed }) => ({
+      android_ripple={{ color: primario ? cores.verdeClaro : cores.borda }}
+      style={{
+        minHeight: 48,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        borderRadius: 12,
+        borderWidth: 1,
         backgroundColor: primario ? cores.verde : cores.cartao,
         borderColor: primario ? cores.verde : cor,
-        opacity: bloqueado || pressed ? 0.8 : 1,
-      })}
+        opacity: bloqueado ? 0.8 : 1,
+        overflow: 'hidden',
+      }}
     >
       {carregando ? (
         <ActivityIndicator color={cor} />
